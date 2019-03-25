@@ -1,9 +1,8 @@
 package list;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ObjectList implements Serializable {
+public class ObjectList {
 	//generic list for any object
 	
 	//private int max_num;

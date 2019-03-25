@@ -2,16 +2,16 @@ package main;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import start.StartUp;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();//I will have to get this root from Controller
-			Scene scene = new Scene(root,400,400);
+			StartUp start = new StartUp();
+			Scene scene = new Scene(start.setUp(),400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
