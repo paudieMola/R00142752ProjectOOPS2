@@ -1,14 +1,29 @@
 package start;
 
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import controller.Controller;
 
 public class StartUp {
 	//kick off program and feed root to main
 	
-	public Pane setUp() {
-		BorderPane root = new BorderPane();
-		return root;
+	private static StartUp instance;
+	private static Controller controller;
+	
+	private StartUp() {
+	}
+	
+	public synchronized static StartUp getInstance() {
+		if (instance == null) {
+			instance = new StartUp();
+		}
+		return instance;
+	}
+
+	public Controller getController() {
+		return controller;
+	}
+
+	public void setController(Controller controller) {
+		StartUp.controller = controller;
 	}
 	
 }

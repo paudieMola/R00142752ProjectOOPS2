@@ -1,5 +1,6 @@
 package classes;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Payment {
@@ -7,8 +8,14 @@ public class Payment {
 	
 	private int PatientID;
 	private double amount;
-	private Date paymentDate;
+	private String paymentDate;
 	private int InvoiceNo;
+	
+	public Payment() {
+		Date now = new Date();
+		SimpleDateFormat dFormat = new SimpleDateFormat("EEEE, MMMM d, yyyy");
+		this.paymentDate = dFormat.format(now);
+	}
 	
 	public int getPatientID() {
 		return PatientID;
@@ -22,10 +29,10 @@ public class Payment {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public Date getPaymentDate() {
+	public String getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 	public int getInvoiceNo() {
