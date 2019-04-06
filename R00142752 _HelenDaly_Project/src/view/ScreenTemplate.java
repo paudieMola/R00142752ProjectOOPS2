@@ -11,18 +11,8 @@ import javafx.scene.shape.Rectangle;
 
 public class ScreenTemplate extends Scene
 {
-	StackPane base = new StackPane();
-	VBox header = new VBox();
-	
-	
 	public ScreenTemplate(Parent root, int height, int width, Paint fill) {
 		super(root, height, width, fill);
 	}
-
-	
-	//public StackPane template() {
-		//return base;Color.rgb(49, 196, 232)
-	//}
-	
 
 }

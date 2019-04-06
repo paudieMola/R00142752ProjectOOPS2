@@ -1,1 +1,6 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#headertext {
+    -fx-font: 100px Tahoma;
+    -fx-fill: WHITE;
+    -fx-stroke: WHITE;
+    -fx-stroke-width: 1;
+}
