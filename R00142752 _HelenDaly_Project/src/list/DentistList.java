@@ -3,6 +3,7 @@ package list;
 import classes.Dentist;
 
 public class DentistList extends ObjectList{
+	
 	public DentistList() {
 		super();
 	}

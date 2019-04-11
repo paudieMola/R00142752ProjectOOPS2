@@ -2,7 +2,7 @@ package storage;
 
 public interface StorageIntface {
 	
-	public void save();
-	public void load();
+	public Object save(String filename);
+	public Object load(Object o, String filename);
 
 }

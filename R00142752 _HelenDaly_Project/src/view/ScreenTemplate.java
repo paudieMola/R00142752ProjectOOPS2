@@ -11,8 +11,14 @@ import javafx.scene.shape.Rectangle;
 
 public class ScreenTemplate extends Scene
 {
-	public ScreenTemplate(Parent root, int height, int width, Paint fill) {
-		super(root, height, width, fill);
+	//provides a the scene to be displayed on the stage.
+	//I should really be binding everything to this
+	
+	public ScreenTemplate(Parent root, double width, double height) {
+		super(root, width, height);
+		Rectangle baseColor = new Rectangle();
+		baseColor.setFill(Color.rgb(49, 196, 232));
+		baseColor.setHeight(height);
+		baseColor.setWidth(width);
 	}
-
 }

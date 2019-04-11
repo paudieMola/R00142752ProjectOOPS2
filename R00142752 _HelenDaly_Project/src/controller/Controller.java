@@ -1,8 +1,11 @@
 package controller;
 
 import java.util.Scanner;
+
+//import application.Main;
 import list.PatientList;
 import view.HomeScreen;
+import view.Login;
 import view.ScreenTemplate;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -10,26 +13,24 @@ import javafx.stage.Stage;
 public class Controller {
 	//create controller first time, and use singleton to persist data
 	private static Controller instance;
-	static Scanner in;
+	public static Scanner in;
 	private Stage stage;
 	private PatientList patients;//if i have a separate patientlist class I'll have to do something about this
 	private ScreenTemplate temp;
 	private HomeScreen home;
+	private Login login;
 	
 	private Controller(Stage primaryStage) {
 		primaryStage.setTitle("Welcome to Gentle Dental");
 		in = new Scanner(System.in);
 		setStage(primaryStage);
-		this.home = new HomeScreen();
-		this.temp = new ScreenTemplate(home, 800, 600, Color.rgb(49, 196, 232));
+		this.login = new Login(this);
+		this.temp = new ScreenTemplate(login, 800, 600);
+		this.temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
 		getStage().setScene(temp);
 		this.stage.show();
 	}
 	
-	//public Controller() {
-		 //TODO Auto-generated constructor stub
-	//}
-
 	public synchronized static Controller getInstance(Stage primaryStage) {
 		if (instance ==null) {
 			instance = new Controller(primaryStage);
@@ -41,8 +42,10 @@ public class Controller {
 	
 	public Stage getStage() {return this.stage;}
 	
-	
-	public void handleHomeMenu() {
-		
+	public void setHomeScreen() {
+		//this.home = new HomeScreen();
+		this.temp = new ScreenTemplate((home = new HomeScreen()), 800, 600);
+		getStage().setScene(temp);
 	}
+	
 }

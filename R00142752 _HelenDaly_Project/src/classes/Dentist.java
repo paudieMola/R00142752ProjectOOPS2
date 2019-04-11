@@ -8,7 +8,7 @@ public class Dentist extends Person{
 	
 	private String phoneNo;
 	private String password;
-	private int staffID;
+	private int staffID;//get this auto incremented
 	
 	
 	public String getPhoneNo() {
