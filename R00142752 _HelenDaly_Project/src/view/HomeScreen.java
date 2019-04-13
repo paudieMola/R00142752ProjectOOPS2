@@ -1,5 +1,5 @@
 package view;
-
+//
 import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class HomeScreen extends BorderPane{
@@ -24,11 +26,12 @@ public class HomeScreen extends BorderPane{
 	header.setSpacing(10);
 	sidePanel.setPadding(new Insets(15, 12, 15, 12));
 	sidePanel.setSpacing(10);
-	
+	//Rectangle backColor = new Rectangle();
+	//backColor.setFill(Color.rgb(49, 196, 232));
 	Text headerText = new Text ("Gentle Dental");
 	headerText.setId("main/headertext");
 	
-	ImageView tooth = new ImageView(new Image("view/tooth.jpg"));
+	ImageView tooth = new ImageView(new Image("main/tooth.jpg"));
 	tooth.setFitHeight(30);
 	tooth.setFitWidth(30);
 	header.getChildren().addAll(tooth,headerText);

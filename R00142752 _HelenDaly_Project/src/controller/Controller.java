@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 //import application.Main;
 import list.PatientList;
+import storage.SerialStorage;
 import view.HomeScreen;
 import view.Login;
 import view.ScreenTemplate;
@@ -25,9 +26,9 @@ public class Controller {
 		in = new Scanner(System.in);
 		setStage(primaryStage);
 		this.login = new Login(this);
-		this.temp = new ScreenTemplate(login, 800, 600);
-		this.temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
+		this.temp = new ScreenTemplate(login, 450, 450);
 		getStage().setScene(temp);
+		this.temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
 		this.stage.show();
 	}
 	
@@ -46,6 +47,15 @@ public class Controller {
 		//this.home = new HomeScreen();
 		this.temp = new ScreenTemplate((home = new HomeScreen()), 800, 600);
 		getStage().setScene(temp);
+	}
+	
+	public void saveController() {
+		//try {//load controller object from file and continue from last save
+			//this.getInstance = (this.getInstance(primaryStage))SerialStorage.save("storage.ser"); 
+		}
+		//catch(Exception e) {//I don't need a try catch cos it already exists. 
+			//control = new HotelController();
+		//}	
 	}
 	
 }

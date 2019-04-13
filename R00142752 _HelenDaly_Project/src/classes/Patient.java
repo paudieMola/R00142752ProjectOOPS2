@@ -1,4 +1,6 @@
 package classes;
+//
+import java.util.ArrayList;
 
 import list.AppointmentList;
 import list.InvoiceList;
@@ -6,15 +8,18 @@ import list.PaymentList;
 
 public class Patient extends Person{
 	//class to hold ID, address, appoint[] payments[] invoices[] and phoneNo
-	public Patient() {
-		super ();
-	}
-	
 	private int patientID;
 	private String addressLine1, addressLine2, city, country, phoneNo;
-	private AppointmentList appointmentList;
-	private PaymentList paymentList;
-	private InvoiceList invoiceList;
+	private ArrayList<Appointment> appointments;
+	private ArrayList<Payment> payments;
+	private ArrayList<Invoice> invoices;
+	
+	public Patient() {
+		this.appointments = new ArrayList<Appointment>();
+		this.payments = new ArrayList<Payment>();
+		this.invoices = new ArrayList<Invoice>();
+	}
+	
 	public int getPatientID() {
 		return patientID;
 	}
@@ -51,24 +56,26 @@ public class Patient extends Person{
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
-	public AppointmentList getAppointmentList() {
-		return appointmentList;
+	
+	/*these getters and setters are inherited the ObjectList class
+	public ArrayList<Appointment> getAppointmentList() {
+		return appointments;
 	}
-	public void setAppointmentList(AppointmentList appointmentList) {
-		this.appointmentList = appointmentList;
+	public void setAppointmentList(Appointment appointments) {
+		this.appointments = appointments;
 	}
-	public PaymentList getPaymentList() {
-		return paymentList;
+	public ArrayList<Payment> getPayments() {
+		return payments;
 	}
-	public void setPaymentList(PaymentList paymentList) {
-		this.paymentList = paymentList;
+	public void setPayments(ArrayList<Payment> payments) {
+		this.payments = payments;
 	}
-	public InvoiceList getInvoiceList() {
-		return invoiceList;
+	public ArrayList<Invoice> getInvoices() {
+		return invoices;
 	}
-	public void setInvoiceList(InvoiceList invoiceList) {
-		this.invoiceList = invoiceList;
-	}
+	public void setInvoices(ArrayList<Invoice> invoices) {
+		this.invoices = invoices;
+	}*/
 	
 
 }

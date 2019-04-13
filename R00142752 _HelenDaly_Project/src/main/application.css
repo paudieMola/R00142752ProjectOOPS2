@@ -4,3 +4,7 @@
     -fx-stroke: WHITE;
     -fx-stroke-width: 1;
 }
+.root {
+     -fx-background-image: url("tooth.jpg");
+}
+//

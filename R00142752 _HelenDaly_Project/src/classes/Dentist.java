@@ -1,5 +1,5 @@
 package classes;
-
+//
 public class Dentist extends Person{
 	//Dentist object
 	public Dentist() {
