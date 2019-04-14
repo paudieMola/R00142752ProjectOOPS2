@@ -2,32 +2,19 @@ package classes;
 //
 public class Dentist extends Person{
 	//Dentist object
-	public Dentist() {
-		super();
-	}
-	
-	private String phoneNo;
 	private String password;
-	private int staffID;//get this auto incremented
+	private int staffID;
+	static int STAFFID = 1;//to allow persistent autoincrement staffID
 	
+	public Dentist(String first_name, String last_name, String phoneNo) {
+		super(first_name, last_name, phoneNo);
+		this.staffID = Dentist.STAFFID;
+		Dentist.STAFFID++;
+	}
 	
-	public String getPhoneNo() {
-		return phoneNo;
-	}
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public int getStaffID() {
-		return staffID;
-	}
-	public void setStaffID(int staffID) {
-		this.staffID = staffID;
-	}
+	//gets and sets
+	public String getPassword() {return password;}
+	public void setPassword(String password) {this.password = password;}
+	public int getStaffID() {return staffID;}
 	
 }

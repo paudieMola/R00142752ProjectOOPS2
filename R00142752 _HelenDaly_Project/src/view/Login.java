@@ -57,11 +57,6 @@ public class Login extends GridPane {
 		pwBox = new PasswordField();
 		this.add(pwBox, 1, 2);
 
-		//cw = new Label("Code:");
-		//this.add(cw, 0, 3);
-		//codeField = new TextField();
-		//this.add(codeField, 1, 3);
-
 		btn = new Button("Sign in");
 		hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
@@ -71,10 +66,6 @@ public class Login extends GridPane {
 		this.add(actiontarget, 1, 6);
 
 		btn.setOnAction(e -> {
-			/*
-			 * actiontarget.setFill(Color.FIREBRICK);
-			 * actiontarget.setText("Sign in button pressed");
-			 */
 
 			try {
 				String username = this.userTextField.getText();

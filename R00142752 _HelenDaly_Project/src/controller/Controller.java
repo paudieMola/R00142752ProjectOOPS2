@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 public class Controller {
 	//create controller first time, and use singleton to persist data
 	private static Controller instance;
-	public static Scanner in;
 	private Stage stage;
 	private PatientList patients;//if i have a separate patientlist class I'll have to do something about this
 	private ScreenTemplate temp;
@@ -22,12 +21,12 @@ public class Controller {
 	private Login login;
 	
 	private Controller(Stage primaryStage) {
+		instance = this;
 		primaryStage.setTitle("Welcome to Gentle Dental");
-		in = new Scanner(System.in);
 		setStage(primaryStage);
 		this.login = new Login(this);
-		this.temp = new ScreenTemplate(login, 450, 450);
-		getStage().setScene(temp);
+		this.temp = new ScreenTemplate(login);
+		this.getStage().setScene(temp);
 		this.temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
 		this.stage.show();
 	}
@@ -45,14 +44,14 @@ public class Controller {
 	
 	public void setHomeScreen() {
 		//this.home = new HomeScreen();
-		this.temp = new ScreenTemplate((home = new HomeScreen()), 800, 600);
-		getStage().setScene(temp);
+		this.temp = new ScreenTemplate((home = new HomeScreen()));
+		this.getStage().setScene(temp);
 	}
 	
 	public void saveController() {
 		//try {//load controller object from file and continue from last save
 			//this.getInstance = (this.getInstance(primaryStage))SerialStorage.save("storage.ser"); 
-		}
+		//}
 		//catch(Exception e) {//I don't need a try catch cos it already exists. 
 			//control = new HotelController();
 		//}	
