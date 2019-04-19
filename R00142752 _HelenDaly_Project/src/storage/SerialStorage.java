@@ -5,42 +5,43 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class SerialStorage implements StorageIntface{
+public class SerialStorage implements StorageIntface, Serializable {
 	
 	@Override
-	public Object save(String fileName){
-		Object o = null;
-		FileInputStream fileIn;
-		ObjectInputStream in;
+	public Object save(Object o){
+		boolean sucess = true;
 		try {
-			fileIn = new FileInputStream(fileName);
-			in = new ObjectInputStream(fileIn);
-			o = in.readObject();
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-		} finally {
-			///in.close();
-		}
-		return o;
-	};
-	
-	@Override
-	public Object load(Object o, String fileName) {
-		boolean success = true;
-		try {
-			FileOutputStream fileOut = new FileOutputStream(fileName);
+			FileOutputStream fileOut = new FileOutputStream("gentleDental.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(o);
 			out.close();
 			fileOut.close();
+			System.out.printf("Serialized data saved");
 		} catch (IOException i) {
 			i.printStackTrace();
-			success = false;
+			sucess = false;
 		}
-		return success;
+		return sucess;
+	};
+	
+	@Override
+	public Object load() {
+		Object o = null;
+		try {
+			FileInputStream fileIn = new FileInputStream("gentleDental.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			o = in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+		} catch (ClassNotFoundException c) {
+			System.out.println("class not found");
+		}
+		
+		return o;
 	}	
 	
 }

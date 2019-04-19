@@ -1,16 +1,15 @@
 package storage;
 //
 public class DatabaseStorage implements StorageIntface{
-	public void save() {};
-	public void load() {}
+
 	
 	@Override
-	public Object save(String filename) {
+	public Object save(Object o) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Object load(Object o, String filename) {
+	public Object load() {
 		// TODO Auto-generated method stub
 		return null;
 	};

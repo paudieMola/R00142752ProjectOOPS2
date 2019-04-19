@@ -1,9 +1,8 @@
 package view;
 
-import javafx.scene.layout.StackPane;
+import java.io.Serializable;
 
-//
-public class FilledHomeScreen extends StackPane {
+public class FilledHomeScreen extends HomeScreen implements Serializable {
 
 	public FilledHomeScreen () {
 		super();

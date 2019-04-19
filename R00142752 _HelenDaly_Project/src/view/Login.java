@@ -34,8 +34,7 @@ public class Login extends GridPane {
 
 	private final Text actiontarget = new Text();
 
-	public Login(Controller cont) {
-		this.control = cont;
+	public Login() {
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
 		this.setVgap(10);

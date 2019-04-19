@@ -5,11 +5,11 @@ import javafx.scene.control.Button;
 //to create my own buttons
 public class MyButton extends Button{
 	
-	public MyButton(String buttonText, double wid,double heig) {
+	public MyButton(String buttonText, double height, double width) {
 
 		super(buttonText);
-		this.setHeight(heig);
-		this.setWidth(wid);
+		this.prefHeight(height);
+		this.prefWidth(width);
 		
 	}
 }

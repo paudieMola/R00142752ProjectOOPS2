@@ -12,7 +12,8 @@ public class Main extends Application {
 	@Override   
 	public void start(Stage primaryStage) {
 		try {
-			Controller.getInstance(primaryStage);
+			Controller.getInstance().setStage(primaryStage);
+			Controller.getInstance().loadData();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

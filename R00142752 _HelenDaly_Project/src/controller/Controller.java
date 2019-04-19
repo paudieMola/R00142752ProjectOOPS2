@@ -2,12 +2,15 @@ package controller;
 
 import java.util.Scanner;
 
+import classes.Patient;
 //import application.Main;
 import list.PatientList;
 import storage.SerialStorage;
+import storage.StorageIntface;
 import view.HomeScreen;
 import view.Login;
 import view.ScreenTemplate;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -19,21 +22,23 @@ public class Controller {
 	private ScreenTemplate temp;
 	private HomeScreen home;
 	private Login login;
+	private StorageIntface store;
 	
-	private Controller(Stage primaryStage) {
+	private Controller() {
 		instance = this;
-		primaryStage.setTitle("Welcome to Gentle Dental");
-		setStage(primaryStage);
-		this.login = new Login(this);
-		this.temp = new ScreenTemplate(login);
-		this.getStage().setScene(temp);
-		this.temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
-		this.stage.show();
+		store = new SerialStorage();
+		/*stage.setTitle("Welcome to Gentle Dental");
+		login = new Login(this);
+		temp = new ScreenTemplate(login);
+		this.stage.setScene(temp);
+		temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
+		setStage(stage);
+		stage.show();*/
 	}
 	
-	public synchronized static Controller getInstance(Stage primaryStage) {
+	public synchronized static Controller getInstance() {
 		if (instance ==null) {
-			instance = new Controller(primaryStage);
+			instance = new Controller();
 		}
 		return instance;
 	}
@@ -48,13 +53,38 @@ public class Controller {
 		this.getStage().setScene(temp);
 	}
 	
+	public void setScene(Scene scene) {this.stage.setScene(scene);}
+	
 	public void saveController() {
-		//try {//load controller object from file and continue from last save
-			//this.getInstance = (this.getInstance(primaryStage))SerialStorage.save("storage.ser"); 
-		//}
-		//catch(Exception e) {//I don't need a try catch cos it already exists. 
-			//control = new HotelController();
-		//}	
+		this.store.save(Controller.getInstance());
+	}
+	
+	public void loadData() {
+		Object o = store.load();
+		if(o == null) {
+			this.loadTempData();
+		}
+		else {
+			instance = (Controller)o;
+		}
+		this.start();
+	}
+	
+	private void loadTempData() {
+		for(int i = 0; i<5;i++) {
+			Patient p = new Patient("Patient"+i, "Patient"+i, i, "AddressL1"+i, "AddressL2"+i,"City"+1, "Country"+i, "Phone"+i);
+			patients.add(p);
+		}
+		
+	}
+	
+	private void start() {
+		this.stage.setTitle("Welcome to Gentle Dental");
+		login = new Login();
+		temp = new ScreenTemplate(login);
+		this.setScene(temp);
+		temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
+		this.stage.show();
 	}
 	
 }
