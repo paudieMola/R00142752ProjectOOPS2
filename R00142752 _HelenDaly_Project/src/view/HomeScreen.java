@@ -22,7 +22,7 @@ public class HomeScreen extends BorderPane implements Serializable {
 	//I wanted to put a login screen in the middle of this.
 	HBox header = new HBox();
 	VBox sidePanel = new VBox();
-	StackPane centreScreen = new StackPane();
+	//StackPane centreScreen = new StackPane();
 	ScreenTemplate screen;
 	
 	public HomeScreen() {
@@ -34,7 +34,6 @@ public class HomeScreen extends BorderPane implements Serializable {
 	}
 
 	private void buildHomeScreen() throws ButtonException {
-		
 		header.setPadding(new Insets(15, 12, 15, 12));
 		header.setSpacing(10);
 		sidePanel.setPadding(new Insets(15, 12, 15, 12));
@@ -50,32 +49,31 @@ public class HomeScreen extends BorderPane implements Serializable {
 		this.setLeft(sidePanel);
 		
 		
-		
-		MyButton homeButton = new MyButton("Home", sidePanel.getPrefWidth(), sidePanel.getPrefWidth());
+		MyButton homeButton = new MyButton("Home");
 		homeButton.setOnAction(e -> {
 			//FilledHomeScreen fhomeScreen = new FilledHomeScreen();
 			//setCentreScreen(fhomeScreen);
 			//screen = new ScreenTemplate(this); AppController.getInstance().setScene(newScene);
-			
 		});
-		MyButton patientsButton = new MyButton("Patients",sidePanel.getPrefWidth(), sidePanel.getPrefWidth());
+		MyButton patientsButton = new MyButton("Patients");
 		patientsButton.setOnAction(e -> {
-
 			PatientsScreen patScreen = new PatientsScreen();
-			setCentreScreen(patScreen);
-			//Controller.getInstance().setStage(this),setScene();
-			//screen = new ScreenTemplate(this);
+			this.setCenter(patScreen);
+			//this.setCentreScreen;
+			//()
+			//patScreen.getChildren();
+			//Controller.getInstance().setScene(screen = new ScreenTemplate(this));
 		});
-		MyButton proceduresButton = new MyButton("Procedures", sidePanel.getPrefWidth(), sidePanel.getPrefWidth());
+		MyButton proceduresButton = new MyButton("Procedures");
 		proceduresButton.setOnAction(e -> {
 			ProceduresScreen procScreen = new ProceduresScreen();
-			setCentreScreen(procScreen);
+			//setCentreScreen(procScreen);
 			//screen = new ScreenTemplate(this);
 		});
-		MyButton calendarButton = new MyButton("Appointments", sidePanel.getPrefWidth(), sidePanel.getPrefWidth());
+		MyButton calendarButton = new MyButton("Appointments");
 		calendarButton.setOnAction(e -> {
 			CalendarScreen calScreen = new CalendarScreen();
-			setCentreScreen(calScreen);
+			//setCentreScreen(calScreen);
 			//screen = new ScreenTemplate(this);
 		});
 		sidePanel.getChildren().addAll(homeButton, patientsButton, proceduresButton, calendarButton);
@@ -98,8 +96,8 @@ public class HomeScreen extends BorderPane implements Serializable {
 		this.sidePanel = sidePanel;
 	}
 
-	public void setCentreScreen(StackPane centreScreen) {
-		this.centreScreen = centreScreen;
-	}
+	//public void setCentreScreen(StackPane centreScreen) {
+		//this.centreScreen = centreScreen;
+	//}
 	
 }

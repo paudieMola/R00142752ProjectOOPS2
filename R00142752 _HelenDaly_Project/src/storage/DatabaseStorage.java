@@ -4,9 +4,9 @@ public class DatabaseStorage implements StorageIntface{
 
 	
 	@Override
-	public Object save(Object o) {
+	public boolean save(Object o) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 	@Override
 	public Object load() {

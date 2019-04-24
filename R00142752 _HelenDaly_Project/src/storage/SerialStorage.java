@@ -10,8 +10,8 @@ import java.io.Serializable;
 public class SerialStorage implements StorageIntface, Serializable {
 	
 	@Override
-	public Object save(Object o){
-		boolean sucess = true;
+	public boolean save(Object o){
+		boolean success = true;
 		try {
 			FileOutputStream fileOut = new FileOutputStream("gentleDental.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -21,9 +21,9 @@ public class SerialStorage implements StorageIntface, Serializable {
 			System.out.printf("Serialized data saved");
 		} catch (IOException i) {
 			i.printStackTrace();
-			sucess = false;
+			success = false;
 		}
-		return sucess;
+		return success;
 	};
 	
 	@Override
@@ -36,7 +36,7 @@ public class SerialStorage implements StorageIntface, Serializable {
 			in.close();
 			fileIn.close();
 		} catch (IOException i) {
-			i.printStackTrace();
+			//i.printStackTrace();
 		} catch (ClassNotFoundException c) {
 			System.out.println("class not found");
 		}

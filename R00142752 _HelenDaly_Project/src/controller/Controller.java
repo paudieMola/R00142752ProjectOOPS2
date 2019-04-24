@@ -18,7 +18,7 @@ public class Controller {
 	//create controller first time, and use singleton to persist data
 	private static Controller instance;
 	private Stage stage;
-	private PatientList patients;//if i have a separate patientlist class I'll have to do something about this
+	private PatientList patients;//
 	private ScreenTemplate temp;
 	private HomeScreen home;
 	private Login login;
@@ -71,8 +71,9 @@ public class Controller {
 	}
 	
 	private void loadTempData() {
-		for(int i = 0; i<5;i++) {
+		for(int i = 0; i < 5; i++) {
 			Patient p = new Patient("Patient"+i, "Patient"+i, i, "AddressL1"+i, "AddressL2"+i,"City"+1, "Country"+i, "Phone"+i);
+			patients = new PatientList();
 			patients.add(p);
 		}
 		

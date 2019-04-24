@@ -86,11 +86,11 @@ public class Login extends GridPane {
 	}
 
 	private void checkLogin(String username, String password) throws LoginException {
-		
 		//create an arraylist of login names and passwords here
 		if (username.toLowerCase().equals("helen") && password.equals("pass")) {//change this to get the dentist helen and compare the password
 			actiontarget.setFill(Color.GREEN);									//get the object within the method to save memory
 			actiontarget.setText("Login Success");
+			control = Controller.getInstance();
 			this.control.setHomeScreen();//has to change to display home screen
 		} else {
 			actiontarget.setFill(Color.FIREBRICK);
