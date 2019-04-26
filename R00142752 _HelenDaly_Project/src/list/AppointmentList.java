@@ -1,14 +1,13 @@
 package list;
 
+import java.io.Serializable;
+
 import classes.Appointment;
 
-public class AppointmentList extends ObjectList {
+public class AppointmentList extends ObjectList implements Serializable {
 
 	public AppointmentList() {
 		super();
 	}
-	
-	public void addAppointment(Appointment appointment) {
-		this.add(appointment);
-	}
+
 }

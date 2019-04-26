@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import classes.Patient;
@@ -14,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Controller {
+public class Controller implements Serializable {
 	//create controller first time, and use singleton to persist data
 	private static Controller instance;
 	private Stage stage;
@@ -27,13 +29,6 @@ public class Controller {
 	private Controller() {
 		instance = this;
 		store = new SerialStorage();
-		/*stage.setTitle("Welcome to Gentle Dental");
-		login = new Login(this);
-		temp = new ScreenTemplate(login);
-		this.stage.setScene(temp);
-		temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
-		setStage(stage);
-		stage.show();*/
 	}
 	
 	public synchronized static Controller getInstance() {
@@ -72,11 +67,11 @@ public class Controller {
 	
 	private void loadTempData() {
 		for(int i = 0; i < 5; i++) {
-			Patient p = new Patient("Patient"+i, "Patient"+i, i, "AddressL1"+i, "AddressL2"+i,"City"+1, "Country"+i, "Phone"+i);
+			Patient p = new Patient("Patient"+i, "Patient"+i, i, "AddressL1"+i, "AddressL2"+i,"City"+i, "Country"+i, "Phone"+i);
 			patients = new PatientList();
-			patients.add(p);
+			patients.getList().add(p);
+			this.saveController();
 		}
-		
 	}
 	
 	private void start() {
@@ -87,5 +82,15 @@ public class Controller {
 		temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
 		this.stage.show();
 	}
+
+	public PatientList getPatients() {
+		return patients;
+	}
+
+	public void setPatients(PatientList patients) {
+		this.patients = patients;
+	}
+	
+	
 	
 }

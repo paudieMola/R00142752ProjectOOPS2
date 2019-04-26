@@ -1,6 +1,9 @@
 package classes;
+
+import java.io.Serializable;
+
 //
-public abstract class Person {
+public abstract class Person implements Serializable {
 	//interface to hold name of Person
 	private String first_name, last_name;
 	private String phoneNo;

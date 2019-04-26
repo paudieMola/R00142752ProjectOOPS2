@@ -1,6 +1,9 @@
 package classes;
+
+import java.io.Serializable;
+
 //
-public class Procedure {
+public class Procedure implements Serializable {
 	
 	private int procID;
 	private String description;

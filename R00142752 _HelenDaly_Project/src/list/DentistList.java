@@ -1,15 +1,12 @@
 package list;
 
+import java.io.Serializable;
 import classes.Dentist;
 
-public class DentistList extends ObjectList{
+public class DentistList extends ObjectList implements Serializable {
 	
 	public DentistList() {
 		super();
-	}
-	
-	public void addDentist(Dentist dentist) {
-		this.add(dentist);
 	}
 
 }

@@ -1,6 +1,9 @@
 package classes;
+
+import java.io.Serializable;
+
 //
-public class Dentist extends Person{
+public class Dentist extends Person implements Serializable{
 	//Dentist object
 	private String password;
 	private int staffID;

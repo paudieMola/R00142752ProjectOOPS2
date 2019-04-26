@@ -7,6 +7,6 @@ public class MyButton extends Button{
 	
 	public MyButton(String buttonText) {
 		super(buttonText);
-
+		this.setMaxWidth(Double.MAX_VALUE);
 	}
 }
