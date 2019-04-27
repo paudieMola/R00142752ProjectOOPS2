@@ -7,6 +7,7 @@ import java.util.Scanner;
 import classes.Patient;
 //import application.Main;
 import list.PatientList;
+import list.ProcedureList;
 import storage.SerialStorage;
 import storage.StorageIntface;
 import view.HomeScreen;
@@ -20,7 +21,8 @@ public class Controller implements Serializable {
 	//create controller first time, and use singleton to persist data
 	private static Controller instance;
 	private Stage stage;
-	private PatientList patients;//
+	private PatientList patients;
+	private ProcedureList procedures;
 	private ScreenTemplate temp;
 	private HomeScreen home;
 	private Login login;
@@ -29,6 +31,7 @@ public class Controller implements Serializable {
 	private Controller() {
 		instance = this;
 		store = new SerialStorage();
+		patients = new PatientList();
 	}
 	
 	public synchronized static Controller getInstance() {
@@ -66,12 +69,11 @@ public class Controller implements Serializable {
 	}
 	
 	private void loadTempData() {
-		for(int i = 0; i < 5; i++) {
-			Patient p = new Patient("Patient"+i, "Patient"+i, i, "AddressL1"+i, "AddressL2"+i,"City"+i, "Country"+i, "Phone"+i);
-			patients = new PatientList();
-			patients.getList().add(p);
-			this.saveController();
-		}
+		patients.add(new Patient("Liam","Daly",43,"Coom, Cobh, Co.Cork","021 4877026"));
+		patients.add(new Patient("Trina","Daly",34,"Bridgestown, Inniscarra, Co. Cork","021 4877027"));
+		patients.add(new Patient("John","Daly",49,"Coolmona, Donoughmore, Co Cork","021 4877028"));
+		patients.add(new Patient("Denis","Daly",52,"34 The Rise, Bishopstown, Cork","021 4877029"));
+		patients.add(new Patient("Kim","Daly",26,"52 Greenfields, Ballincollig, Co Cork","021 4877022"));
 	}
 	
 	private void start() {
@@ -83,13 +85,11 @@ public class Controller implements Serializable {
 		this.stage.show();
 	}
 
-	public PatientList getPatients() {
-		return patients;
-	}
-
-	public void setPatients(PatientList patients) {
-		this.patients = patients;
-	}
+	public PatientList getPatients() {return patients;}
+	public void setPatients(PatientList patients) {this.patients = patients;}
+	public ProcedureList getProcedures() {return procedures;}
+	public void setProcedures(ProcedureList procedures) {this.procedures = procedures;}
+	
 	
 	
 	

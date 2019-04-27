@@ -2,19 +2,21 @@ package view;
 
 import javafx.collections.ObservableList;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class ProceduresScreen extends StackPane{
+public class ProceduresScreen extends GridPane{
 	
 	private Text testText;
 	private StackPane stack;
 	
 	public ProceduresScreen() {
-		testText = new Text("procedures screen showing");
-		stack = new StackPane();
-		ObservableList list = stack.getChildren();
-		list.addAll(testText);
+		super();
+		procScreenSetUp();
 	}
 
+	private void procScreenSetUp() {
+		
+	}
 }

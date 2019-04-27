@@ -1,4 +1,4 @@
-package classes;
+/*package classes;
 
 import java.io.Serializable;
 
@@ -22,7 +22,7 @@ public abstract class Person implements Serializable {
 	public void setPhoneNo(String phoneNo) {this.phoneNo = phoneNo;}
 
 	public String toString() {
-		return "Name: "+first_name+" "+last_name+"\t Phone Number:"+phoneNo;
+		return first_name+" "+last_name+" TEL:"+phoneNo;
 	}
 	
-}
+}*/

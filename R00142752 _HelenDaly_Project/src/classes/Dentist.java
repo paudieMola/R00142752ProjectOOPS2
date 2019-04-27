@@ -3,14 +3,15 @@ package classes;
 import java.io.Serializable;
 
 //
-public class Dentist extends Person implements Serializable{
+public class Dentist implements Serializable{
 	//Dentist object
-	private String password;
+	private String first_name, last_name, password;
 	private int staffID;
 	static int STAFFID = 1;//to allow persistent autoincrement staffID
 	
 	public Dentist(String first_name, String last_name, String phoneNo) {
-		super(first_name, last_name, phoneNo);
+		this.first_name = first_name;
+		this.last_name = last_name;
 		this.staffID = Dentist.STAFFID;
 		Dentist.STAFFID++;
 	}
