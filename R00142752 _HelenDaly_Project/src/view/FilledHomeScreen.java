@@ -2,7 +2,9 @@ package view;
 
 import java.io.Serializable;
 
-public class FilledHomeScreen extends HomeScreen implements Serializable {
+import javafx.scene.layout.GridPane;
+
+public class FilledHomeScreen extends GridPane implements Serializable {
 
 	public FilledHomeScreen () {
 		super();

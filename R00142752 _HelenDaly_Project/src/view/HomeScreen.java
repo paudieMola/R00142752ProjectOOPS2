@@ -51,8 +51,8 @@ public class HomeScreen extends BorderPane implements Serializable {
 		
 		MyButton homeButton = new MyButton("Home");
 		homeButton.setOnAction(e -> {
-			//FilledHomeScreen fhomeScreen = new FilledHomeScreen();
-			//setCentreScreen(fhomeScreen);
+			FilledHomeScreen fhomeScreen = new FilledHomeScreen();
+			this.setCenter(fhomeScreen);
 			//screen = new ScreenTemplate(this); AppController.getInstance().setScene(newScene);
 		});
 		MyButton patientsButton = new MyButton("Patients");
@@ -67,6 +67,8 @@ public class HomeScreen extends BorderPane implements Serializable {
 		MyButton proceduresButton = new MyButton("Procedures");
 		proceduresButton.setOnAction(e -> {
 			ProceduresScreen procScreen = new ProceduresScreen();
+			System.out.println("PRoc screen created");
+			this.setCenter(procScreen);
 			//setCentreScreen(procScreen);
 			//screen = new ScreenTemplate(this);
 		});

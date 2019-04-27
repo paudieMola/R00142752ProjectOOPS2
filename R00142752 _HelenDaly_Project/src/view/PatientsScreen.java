@@ -25,6 +25,7 @@ public class PatientsScreen extends GridPane {
 	private  TableView<Object> patList;
 	private HBox buttonBanner;
 	private HBox patientListBox;
+	private ScreenTemplate temp;
 	
 	public PatientsScreen() {
 		super();
@@ -55,23 +56,35 @@ public class PatientsScreen extends GridPane {
 		this.setPatientList();
 		this.getChildren().add(patList);
 		
-		MyButton addPatBut = new MyButton("Add Patient");
-		//this.setConstraints(addPatBut, 1, 0);
-		MyButton editPatBut = new MyButton("Edit Patient");
-		//this.setConstraints(editPatBut, 2, 0);
-		MyButton deletePatBut = new MyButton("Delete Patient");
-		//this.setConstraints(deletePatBut, 3, 0);
+		AddButton addPatBut = new AddButton();
+		addPatBut.setOnAction(e -> {
+			AddPatientWindow addPat = new AddPatientWindow();
+			Controller.getInstance().setScene(this.temp = new ScreenTemplate(addPat));
+	
+		});
+		
+		
+		EditButton editPatBut = new EditButton();
+		editPatBut.setOnAction(e -> {
+			EditPatientWindow editPat = new EditPatientWindow();
+			Controller.getInstance().setScene(this.temp = new ScreenTemplate(editPat));
+		});
+		
+		
+		DeleteButton deletePatBut = new DeleteButton();
+		deletePatBut.setOnAction(e -> {
+			DeletePatientWindow deletePat = new DeletePatientWindow();
+			Controller.getInstance().setScene(this.temp = new ScreenTemplate(deletePat));
+		});
+		
 		buttonBanner = new HBox();
 		buttonBanner.getChildren().addAll(addPatBut, editPatBut, deletePatBut);
-		//this.setConstraints(buttonBanner, 0, 0);
-		patientListBox = new HBox();
-		patientListBox.getChildren().add(patList);
-		//this.setConstraints(patientListBox, 0, 1);
+		this.patientListBox = new HBox();
+		this.patientListBox.getChildren().add(patList);
 		
 		this.add(buttonBanner, 0, 0);
 		this.add(patientListBox, 0, 1);
-		
-		//this.getChildren().addAll(addPatBut, editPatBut, deletePatBut, patList);
+	
 	}
 	
 	public void setPatientList() {
