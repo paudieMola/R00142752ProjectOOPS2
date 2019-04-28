@@ -11,6 +11,7 @@ import list.PatientList;
 import list.ProcedureList;
 import storage.SerialStorage;
 import storage.StorageIntface;
+import view.AddPatientWindow;
 import view.HomeScreen;
 import view.Login;
 import view.PatientsScreen;
@@ -30,6 +31,7 @@ public class Controller implements Serializable {
 	private Login login;
 	private StorageIntface store;
 	private PatientsScreen patientsScreen;
+	private AddPatientWindow addPatientWind;
 	
 	private Controller() {
 		instance = this;
@@ -116,6 +118,19 @@ public class Controller implements Serializable {
 		this.patientsScreen.setPatientList();
 		home = new HomeScreen();
 		Controller.getInstance().setScene(this.temp = new ScreenTemplate(home));
+	}
+	
+	public void editPatient(int id) {
+		Patient patient = null;
+		for (Object p:patients.getList()) {
+			if(((Patient)p).getPatientID()==id)
+				patient = (Patient)p;
+		}
+		addPatientWind = new AddPatientWindow(patient);
+	}
+	
+	public void showAllDetails(int id) {
+		
 	}
 	
 }

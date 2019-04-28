@@ -98,7 +98,7 @@ public class DeletePatientWindow extends GridPane {
 	    	            
 	        }
 	    });
-	    this.add(submitButton, 0, 4, 2, 1);
+	    this.add(submitButton, 0, 4, 2, 1);//create my own submit button
 	    this.setHalignment(submitButton, HPos.CENTER);
 	    this.setMargin(submitButton, new Insets(20, 0,20,0));
 	}

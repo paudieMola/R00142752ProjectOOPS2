@@ -19,12 +19,24 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Window;
 
 public class AddPatientWindow extends GridPane{
+	private Boolean edit = false;
+	private Patient p;
+	
 	public AddPatientWindow() {
 		super();
 		setupWindow();
 		addUIControls();
 	}
 	
+	public AddPatientWindow(Patient patient) {
+		super();
+		this.p = patient;
+		edit = true;
+		setupWindow();
+		
+		//addUIControls();
+	}
+
 	private void setupWindow() {
 		// Position the pane at the center of the screen, both vertically and horizontally
 	    this.setAlignment(Pos.CENTER);
@@ -54,7 +66,7 @@ public class AddPatientWindow extends GridPane{
 	}
 	private void addUIControls() {
 	    // Add Header
-	    Label headerLabel = new Label("New Patient");
+	    Label headerLabel = new Label("Patient");
 	    headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 	    this.add(headerLabel, 0,0,2,1);
 	    GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -63,20 +75,25 @@ public class AddPatientWindow extends GridPane{
 	    // Add Name Label
 	    Label nameLabel = new Label("Full Name : ");
 	    this.add(nameLabel, 0,1);
+	    
 
 	    // Add Name Text Field
 	    TextField nameField = new TextField();
 	    nameField.setPrefHeight(40);
+	    if(edit) {
+        	nameField.setText(p.getPatientName());}
 	    this.add(nameField, 1,1);
+	  
 
+	    // Add Age Label
+	    Label ageLabel = new Label("Age: ");
+	    this.add(ageLabel, 0, 2);
 
-	    // Add Email Label
-	    Label emailLabel = new Label("Age: ");
-	    this.add(emailLabel, 0, 2);
-
-	    // Add Email Text Field
+	    // Add Age Text Field
 	    TextField ageField = new TextField();
 	    ageField.setPrefHeight(40);
+	    if(edit) {
+        	ageField.setText(String.valueOf(p.getAge()));}
 	    this.add(ageField, 1, 2);
 
 	    // Add address Label
@@ -85,6 +102,8 @@ public class AddPatientWindow extends GridPane{
 
 	    // Add address Field
 	    TextField addressField = new TextField();
+	    if(edit) {
+        	addressField.setText(p.getAddress());}
 	    addressField.setPrefHeight(40);
 	    this.add(addressField, 1, 3);
 	    
@@ -92,9 +111,11 @@ public class AddPatientWindow extends GridPane{
 	    Label phoneNo = new Label("Phone No : ");
 	    this.add(phoneNo, 0, 4);
 
-	    // Add address Field
+	    // Add phoneNo Field
 	    TextField phoneNoField = new TextField();
 	    phoneNoField.setPrefHeight(40);
+	    if(edit) {
+	    	phoneNoField.setText(p.getPhoneNo());}
 	    this.add(phoneNoField, 1, 4);
 
 	    // Add Submit Button
@@ -123,17 +144,26 @@ public class AddPatientWindow extends GridPane{
 	            
 	            if(phoneNo.getText().isEmpty()) {
 	                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-	                "Form Error!", "Please enter an address");
+	                "Form Error!", "Please enter a phone number");
 	                return;
 	            }
 	            //must change to 
 	            showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), 
 	            "Registration Successful!", "Welcome " + nameField.getText());
+	            
+	            
 	            String name = nameField.getText();
 	            String[] data = name.split(" ");
-	            Patient p = new Patient(data[0],data[1],Integer.parseInt(ageField.getText()),addressField.getText(), phoneNoField.getText());
-	            Controller.getInstance().addPatient(p);
-	            System.out.println(Controller.getInstance().getPatients().getSize());
+	            if(edit) {
+	            	p.setFirstName(data[0]);
+	            	p.setLastName(data[1]);
+	            	p.setAge(Integer.parseInt(ageField.getText()));
+	            	p.setAddress(addressField.getText());
+	            	p.setPhoneNo(phoneNoField.getText());
+	            }
+	            else{p = new Patient(data[0],data[1],Integer.parseInt(ageField.getText()),addressField.getText(), phoneNoField.getText());
+	            Controller.getInstance().addPatient(p);}
+	            System.out.println(Controller.getInstance().getPatients().getSize());//take this out after I know its working
 	        }
 	    });
 	    this.add(submitButton, 0, 5, 2, 1);

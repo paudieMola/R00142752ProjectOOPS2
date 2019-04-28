@@ -40,7 +40,7 @@ public class Patient implements Serializable {
 	
 	public int getPatientID() {return ID;}
 	public String getAddress() {return address;}
-	public void setAddress() {this.address = address;}
+	public void setAddress(String address) {this.address = address;}
 	public void setFirstName(String first_name) {this.first_name = first_name;}
 	public String getFirstName() {return first_name;}
 	public void setLastName(String last_name) {this.last_name = last_name;}
