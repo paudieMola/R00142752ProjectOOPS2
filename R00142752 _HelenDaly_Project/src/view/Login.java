@@ -1,15 +1,9 @@
 package view;
-//
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import controller.Controller;
-import exception.EmailException;
 import exception.LoginException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -24,22 +18,21 @@ import javafx.scene.text.Text;
 public class Login extends GridPane {
 
 	private Text scenetitle;
-	private Label userName, pw, cw;
+	private Label userName, pw;
 	private TextField userTextField;
-	private TextField codeField;
 	private PasswordField pwBox;
 	private HBox hbBtn;
 	private Button btn;
 	private Controller control;
 
-	private final Text actiontarget = new Text();
+	private final Text actiontarget = new Text();//to display sucess or fail message
 
-	public Login() {
+	public Login() {//align on scene and create padding and gaps 
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
 		this.setVgap(10);
 		this.setPadding(new Insets(25, 25, 25, 25));
-		this.setupLogin();
+		this.setupLogin();//kick off the method
 	}
 
 	private void setupLogin() {
@@ -65,22 +58,12 @@ public class Login extends GridPane {
 		this.add(actiontarget, 1, 6);
 
 		btn.setOnAction(e -> {
-
 			try {
-				String username = this.userTextField.getText();
+				String username = this.userTextField.getText();//check login details
 				String password = this.pwBox.getText();
-
-				//if (!checkCodeField(this.codeField.getText())) {
-					//System.out.println("Code field has to be numeric and 4 digits in length");
-				//} else {
-					//checkUsernameEmail(username);
-					checkLogin(username, password);
-				//}
-				// Open new window
-					//} catch (EmailException ex) {
-				// ex.printStackTrace();
+				checkLogin(username, password);
 			} catch (LoginException ex) {
-				// ex.printStackTrace();
+				ex.printStackTrace();
 			}
 		});
 	}
@@ -88,35 +71,16 @@ public class Login extends GridPane {
 	private void checkLogin(String username, String password) throws LoginException {
 		//create an arraylist of login names and passwords here
 		if (username.toLowerCase().equals("helen") && password.equals("pass")) {//change this to get the dentist helen and compare the password
-			actiontarget.setFill(Color.GREEN);									//get the object within the method to save memory
+			actiontarget.setFill(Color.GREEN);
 			actiontarget.setText("Login Success");
 			control = Controller.getInstance();
-			this.control.setHomeScreen();//has to change to display home screen
+			this.control.setHomeScreen();
 		} else {
 			actiontarget.setFill(Color.FIREBRICK);
 			actiontarget.setText("Sign Failed");
-			//this.control.LoginFail();//have to change this to display 
 			throw new LoginException("Bad Login");
 		}
 	}
 
-	//private void checkUsernameEmail(String email) throws EmailException {
-
-		//if (!email.contains("@"))
-			//throw new EmailException("Invalid Email");
-	//}
-
-	//private boolean checkCodeField(String code) {
-		//if (code.length() != 4)
-			//return false;
-
-		//try {
-			//int codeNum = Integer.parseInt(code);
-		//} catch (Exception e) {
-			//return false;
-		//}
-
-		//return true;
-	//}
 
 }

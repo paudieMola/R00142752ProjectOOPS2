@@ -1,5 +1,6 @@
 package view;
 
+import classes.Patient;
 import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,32 +19,27 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Window;
 
 public class DeletePatientWindow extends GridPane {
-	public DeletePatientWindow() {
+	private Patient p;
+	
+	public DeletePatientWindow(Patient p) {
 		super();
-		setupWindow();
-		addUIControls();
+		this.p = p;
+		this.setBackground(null);
+		setupWindow();//kick it off 
+		addUIControls(p);//add details
 	}
 	
 	private void setupWindow() {
-		// Position the pane at the center of the screen, both vertically and horizontally
+		// Position the pane at the center of the screen, set padding etc
 	    this.setAlignment(Pos.CENTER);
-
-	    // Set a padding of 20px on each side
 	    this.setPadding(new Insets(40, 40, 40, 40));
-
-	    // Set the horizontal gap between columns
 	    this.setHgap(10);
-
-	    // Set the vertical gap between rows
 	    this.setVgap(10);
 
 	    // Add Column Constraints
 
-	    // columnOneConstraints will be applied to all the nodes placed in column one.
 	    ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
 	    columnOneConstraints.setHalignment(HPos.RIGHT);
-
-	    // columnTwoConstraints will be applied to all the nodes placed in column two.
 	    ColumnConstraints columnTwoConstrains = new ColumnConstraints(200,200, Double.MAX_VALUE);
 	    columnTwoConstrains.setHgrow(Priority.ALWAYS);
 
@@ -51,60 +47,47 @@ public class DeletePatientWindow extends GridPane {
 	    this.setBackground(null);
 	    
 	}
-	private void addUIControls() {
-	    // Add Header
-	    Label headerLabel = new Label("Delete Patient");
-	    headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-	    this.add(headerLabel, 0,0,2,1);
-	    GridPane.setHalignment(headerLabel, HPos.CENTER);
-	    GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
+	private void addUIControls(Patient p) {
+	    Controller.getInstance().showAllDetails(p);
 
-	    // Add Name Label
-	    Label nameLabel = new Label("Patient ID : ");
-	    this.add(nameLabel, 0,1);
-
-	    // Add Name Text Field
-	    TextField idField = new TextField();
-	    idField.setPrefHeight(40);
-	    this.add(idField, 1,1);
-
-	    // Add Submit Button
-	    Button submitButton = new Button("Delete");
-	    submitButton.setPrefHeight(40);
-	    submitButton.setDefaultButton(true);
-	    submitButton.setPrefWidth(100);
-	    submitButton.setOnAction(new EventHandler<ActionEvent>() {
+	    // Add Delete Button
+	    DeleteButton delBut = new DeleteButton();
+	    delBut.setPrefHeight(40);
+	    delBut.setDefaultButton(true);
+	    delBut.setPrefWidth(100);
+	    delBut.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
 	        public void handle(ActionEvent event) {
 	            
-	            if(idField.getText().isEmpty()) {
-	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-	                "Form Error!", "Please enter an id");
-	                return;
+	            if(p == null) {
+	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check
+	                "Error!", "Please choose an Patient to delete");
+	                Controller.getInstance().showPatientsScreen();
+	    			return;
 	            }
 
-	            String id = idField.getText();
+	            int id = p.getID();
 	            int idToBeDeleted = -1;
 	            try {
-	            	idToBeDeleted = Integer.parseInt(id);
+	            	idToBeDeleted = (id);
 	            }catch(Exception e) {
-	            	showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-	    	                "Form Error!", "Please enter a numeric id");
+	            	showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check
+	    	                "Error!", "There was a problem with this deletion. Please try again");
 	    	                return;
 	            }
 	            Controller.getInstance().deletePatient(idToBeDeleted);
-	            showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), 
+	            showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), //check
 	    	            "Deletion Successful!", "Thanks");
 	    	            
 	        }
 	    });
-	    this.add(submitButton, 0, 4, 2, 1);//create my own submit button
-	    this.setHalignment(submitButton, HPos.CENTER);
-	    this.setMargin(submitButton, new Insets(20, 0,20,0));
+	    this.add(delBut, 0, 4, 2, 1);//create my own submit button
+	    this.setHalignment(delBut, HPos.CENTER);
+	    this.setMargin(delBut, new Insets(20, 0,20,0));
 	}
 	
 	private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-	    Alert alert = new Alert(alertType);
+	    Alert alert = new Alert(alertType);//change to MyAlert
 	    alert.setTitle(title);
 	    alert.setHeaderText(null);
 	    alert.setContentText(message);

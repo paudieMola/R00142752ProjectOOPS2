@@ -2,9 +2,8 @@ package classes;
 
 import java.io.Serializable;
 
-//
 public class Procedure implements Serializable {
-	
+	//to hold procedure details and prices
 	static int PROCID = 1;
 	private int procID;
 	private String description;

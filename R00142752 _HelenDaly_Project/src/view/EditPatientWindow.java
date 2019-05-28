@@ -18,24 +18,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Window;
 
-public class EditPatientWindow extends GridPane {
-	public EditPatientWindow() {//change this and edit and delete from TableView 
+public class EditPatientWindow extends GridPane {//I'll change this to use the code in Add patient window
+
+private Patient patient;
+
+public EditPatientWindow(Patient patient) {// for editing a patient
 	super();
+	this.patient = patient;//set this patient to the patient supplied
 	setupWindow();
-	addUIControls();
+	addUIControls(patient);
+	
 }
 
 private void setupWindow() {
 	// Position the pane at the center of the screen, both vertically and horizontally
     this.setAlignment(Pos.CENTER);
-
-    // Set a padding of 20px on each side
     this.setPadding(new Insets(40, 40, 40, 40));
-
-    // Set the horizontal gap between columns
     this.setHgap(10);
-
-    // Set the vertical gap between rows
     this.setVgap(10);
     this.setBackground(null);
 
@@ -52,63 +51,9 @@ private void setupWindow() {
     this.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
     
 }
-private void addUIControls() {
-	//allow user to enter id to edit
-	Label headerLabel = new Label("Edit Patient");
-    headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-    this.add(headerLabel, 0,0,2,1);
-    GridPane.setHalignment(headerLabel, HPos.CENTER);
-    GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
-
-    // Add Name Label
-    Label nameLabel = new Label("Patient ID : ");
-    this.add(nameLabel, 0,1);
-
-    // Add Name Text Field
-    TextField idField = new TextField();
-    idField.setPrefHeight(40);
-    this.add(idField, 1,1);
-
-    // Add Submit Button
-    Button submitButton = new Button("Submit");
-    submitButton.setPrefHeight(40);
-    submitButton.setDefaultButton(true);
-    submitButton.setPrefWidth(100);
-    submitButton.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            
-            if(idField.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-                "Form Error!", "Please enter an id");
-                return;
-            }
-
-            String id = idField.getText();
-            int idToBeDeleted = -1;
-            try {
-            	idToBeDeleted = Integer.parseInt(id);
-            }catch(Exception e) {
-            	showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-    	                "Form Error!", "Please enter a numeric id");
-    	                return;
-            }
-            Controller.getInstance().deletePatient(idToBeDeleted);
-            showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), 
-    	            "Edit Successful!", "Thanks");
-    	            
-        }
-    });
-    this.add(submitButton, 0, 4, 2, 1);//create my own submit button
-    this.setHalignment(submitButton, HPos.CENTER);
-    this.setMargin(submitButton, new Insets(20, 0,20,0));
-
-	
-	}
-	/*
-	
+private void addUIControls(Patient p) {
     // Add Header
-    Label headerLabel = new Label("New Patient");
+    Label headerLabel = new Label("Patient ID"+ p.getPatientID());
     headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
     this.add(headerLabel, 0,0,2,1);
     GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -117,21 +62,23 @@ private void addUIControls() {
     // Add Name Label
     Label nameLabel = new Label("Full Name : ");
     this.add(nameLabel, 0,1);
-
+    
     // Add Name Text Field
     TextField nameField = new TextField();
     nameField.setPrefHeight(40);
+    nameField.setText(p.getPatientName());
     this.add(nameField, 1,1);
 
+    // Add Age Label
+    Label DOBLabel = new Label("Date of Birth:");
+    this.add(DOBLabel, 0, 2);
 
-    // Add Email Label
-    Label emailLabel = new Label("Age: ");
-    this.add(emailLabel, 0, 2);
+    // Add Age Text Field
+    TextField DOBField = new TextField();
+    DOBField.setPrefHeight(40);
 
-    // Add Email Text Field
-    TextField ageField = new TextField();
-    ageField.setPrefHeight(40);
-    this.add(ageField, 1, 2);
+    	DOBField.setText(String.valueOf(p.getDOB()));
+    this.add(DOBField, 1, 2);
 
     // Add address Label
     Label addressLabel = new Label("Address : ");
@@ -139,6 +86,8 @@ private void addUIControls() {
 
     // Add address Field
     TextField addressField = new TextField();
+
+    	addressField.setText(p.getAddress());
     addressField.setPrefHeight(40);
     this.add(addressField, 1, 3);
     
@@ -146,17 +95,19 @@ private void addUIControls() {
     Label phoneNo = new Label("Phone No : ");
     this.add(phoneNo, 0, 4);
 
-    // Add address Field
+    // Add phoneNo Field
     TextField phoneNoField = new TextField();
     phoneNoField.setPrefHeight(40);
+
+    	phoneNoField.setText(p.getPhoneNo());
     this.add(phoneNoField, 1, 4);
 
-    // Add Submit Button
-    AddButton submitButton = new AddButton();
-    submitButton.setPrefHeight(40);
-    submitButton.setDefaultButton(true);
-    submitButton.setPrefWidth(100);
-    submitButton.setOnAction(new EventHandler<ActionEvent>() {
+    // Add Exit Button
+    MyButton editButton = new MyButton("Submit");
+    editButton.setPrefHeight(40);
+    editButton.setDefaultButton(true);
+    editButton.setPrefWidth(100);
+    editButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override//must change the Alerts to myAlert
         public void handle(ActionEvent event) {
             if(nameField.getText().isEmpty()) {//check this next line. I don't have a getWindow method
@@ -164,38 +115,43 @@ private void addUIControls() {
                 "Form Error!", "Please enter your name");
                 return;
             }
-            if(ageField.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-                "Form Error!", "Please enter your age");
+            if(DOBField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check this out
+                "Form Error!", "Please enter your date of birth");
                 return;
             }
             if(addressField.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
+                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(),//check this out
                 "Form Error!", "Please enter an address");
                 return;
             }
             
             if(phoneNo.getText().isEmpty()) {
-                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-                "Form Error!", "Please enter an address");
+                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check this
+                "Form Error!", "Please enter a phone number");
                 return;
             }
-            //must change to 
+            
+            String name = nameField.getText();
+            String[] data = name.split(" ");//split name into first and last
+            
+            if(data.length<2) {
+                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check this
+                "Error","Please enter a first and last name.");
+                return;
+            }
+            //must change to MuAlert
             showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), 
             "Registration Successful!", "Welcome " + nameField.getText());
-            String name = nameField.getText();
-            String[] data = name.split(" ");
-            Patient p = new Patient(data[0],data[1],Integer.parseInt(ageField.getText()),addressField.getText(), phoneNoField.getText());
-            Controller.getInstance().addPatient(p);
-            System.out.println(Controller.getInstance().getPatients().getSize());
+
+            Controller.getInstance().editPatient(p);
         }
     });
-    this.add(submitButton, 0, 5, 2, 1);
-    this.setHalignment(submitButton, HPos.CENTER);
-    this.setMargin(submitButton, new Insets(20, 0,20,0));
-}*/
+    this.add(editButton, 0, 5, 2, 1);
+    this.setHalignment(editButton, HPos.CENTER);
+    this.setMargin(editButton, new Insets(20, 0,20,0));
+}
 
-	//change this to myAlert
 private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
     Alert alert = new Alert(alertType);
     alert.setTitle(title);
@@ -205,3 +161,5 @@ private void showAlert(Alert.AlertType alertType, Window owner, String title, St
     alert.show();
 }
 }
+
+

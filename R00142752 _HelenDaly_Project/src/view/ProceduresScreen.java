@@ -24,11 +24,11 @@ public class ProceduresScreen extends GridPane{
 	}
 
 	private void procScreenSetUp() {
-		
+		//set up the screen
 		this.setHgap(10);
 		this.setVgap(5);
 		
-		procList = new TableView<Object>();
+		procList = new TableView<Object>();//new table of procedures
 		TableColumn<Object,String> idCol = new TableColumn<Object,String>("ID");
 		TableColumn<Object,String> name = new TableColumn<Object,String>("Name");
 		TableColumn<Object, String> description = new TableColumn<Object, String>("Description");

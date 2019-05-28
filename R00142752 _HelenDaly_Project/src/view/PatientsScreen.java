@@ -1,25 +1,14 @@
 package view;
 
-import java.util.ArrayList;
-
 import classes.Patient;
 import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
-import list.PatientList;
 
 public class PatientsScreen extends GridPane {
 	private  TableView<Object> patList;
@@ -29,34 +18,35 @@ public class PatientsScreen extends GridPane {
 	
 	public PatientsScreen() {
 		super();
-		patScreenSetUp();
-		
+		patScreenSetUp();	
 	}
 
 	private void patScreenSetUp() {
-		
+		//set up the screen 
 		this.setHgap(10);
         this.setVgap(5); 
 		
-		patList = new TableView<Object>();
-		//this.setConstraints(patList, 1, 2);
-		
+		patList = new TableView<Object>();//create a table of patients
+		//set up the table columns
 		TableColumn<Object,String> idCol = new TableColumn<Object,String>("ID");
 		TableColumn<Object,String> fullName = new TableColumn<Object,String>("Name");
-		TableColumn<Object, String> age = new TableColumn<Object, String>("Age");
+		TableColumn<Object, String> dob = new TableColumn<Object, String>("Date of birth");
 		TableColumn<Object,String> phone = new TableColumn<Object, String>("Tel");
 		TableColumn<Object, String> address = new TableColumn<Object, String>("Address");
-		
+		//get the details from Patient
 		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		fullName.setCellValueFactory(new PropertyValueFactory<>("patientName"));
-		age.setCellValueFactory(new PropertyValueFactory<>("age"));
+		dob.setCellValueFactory(new PropertyValueFactory<>("DOB"));
 		phone.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
+		address.setCellValueFactory(new PropertyValueFactory<>("address"));
 		
-		patList.getColumns().addAll(idCol, fullName, age,phone, address);
+		patList.getColumns().addAll(idCol, fullName, dob,phone, address);
 		this.setPatientList();
 		this.getChildren().add(patList);
-		
-		AddButton addPatBut = new AddButton();
+
+
+		//create buttons for add, edit,delete
+		MyButton addPatBut = new MyButton("Add");
 		addPatBut.setOnAction(e -> {
 			AddPatientWindow addPat = new AddPatientWindow();
 			Controller.getInstance().setScene(this.temp = new ScreenTemplate(addPat));
@@ -64,20 +54,22 @@ public class PatientsScreen extends GridPane {
 		});
 		
 		
-		EditButton editPatBut = new EditButton();
+		EditButton editPatBut = new EditButton();//change this to create a new Add patient screen and give p as the parameter
 		editPatBut.setOnAction(e -> {
-			EditPatientWindow editPat = new EditPatientWindow();
-			Controller.getInstance().setScene(this.temp = new ScreenTemplate(editPat));
+			Patient p = (Patient) patList.getSelectionModel().getSelectedItem();
+			EditPatientWindow EditPat = new EditPatientWindow(p);
+			Controller.getInstance().setScene(this.temp = new ScreenTemplate(EditPat));
 		});
 		
 		
 		DeleteButton deletePatBut = new DeleteButton();
 		deletePatBut.setOnAction(e -> {
-			DeletePatientWindow deletePat = new DeletePatientWindow();
+			Patient p = (Patient) patList.getSelectionModel().getSelectedItem();
+			DeletePatientWindow deletePat = new DeletePatientWindow(p);
 			Controller.getInstance().setScene(this.temp = new ScreenTemplate(deletePat));
 		});
 		
-		buttonBanner = new HBox();
+		buttonBanner = new HBox();//box to display buttons
 		buttonBanner.getChildren().addAll(addPatBut, editPatBut, deletePatBut);
 		this.patientListBox = new HBox();
 		this.patientListBox.getChildren().add(patList);
@@ -87,7 +79,7 @@ public class PatientsScreen extends GridPane {
 	
 	}
 	
-	public void setPatientList() {
+	public void setPatientList() {//observable list of patients
 		ObservableList<Object> list = FXCollections.observableArrayList(Controller.getInstance().getPatients().getList());
 		patList.setItems(list);
 	}

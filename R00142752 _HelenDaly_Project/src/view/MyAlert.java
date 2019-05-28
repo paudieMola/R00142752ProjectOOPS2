@@ -4,7 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
 
-public class MyAlert extends Alert {
+public class MyAlert extends Alert {//I'll use this more eventually
 
 	public MyAlert(AlertType arg0, String text, MyAlertEnum type) {
 		super(arg0);

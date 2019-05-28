@@ -1,43 +1,48 @@
 package classes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Date;
 
+import controller.Controller;
 import list.AppointmentList;
 import list.InvoiceList;
-import list.PaymentList;
 
 public class Patient implements Serializable {
 	
-	
 	//class to hold patient contact details and patient records.
 	static int PATIENTID = 1;
-	private int ID, age;
+	private int ID;
+	private String dob;
 	private String address, phoneNo;
 	private AppointmentList appointments;
-	//private PaymentList payments;
 	private InvoiceList invoices;
 	private String patientName;
 	private String first_name;
 	private String last_name;
 	
-	public Patient(String first_name, String last_name, int age, String address, String phoneNo) {
+	public Patient(String first_name, String last_name, String dob, String address, String phoneNo) {
 		this.first_name = first_name;
 		this.last_name = last_name;
-		this.age = age;
+		this.dob = dob;
 		this.address = address;
-		//this.addressLine2 = addressLine2;
-		//this.city = city;
 		this.phoneNo = phoneNo;
 		this.appointments = new AppointmentList();
-		//this.payments = new PaymentList();
 		this.invoices = new InvoiceList();
 		this.patientName = this.getFirstName()+" "+this.getLastName();
-		this.ID = this.PATIENTID;
-		this.PATIENTID++;
+		this.ID=PATIENTID;
+		PATIENTID++;
 	}
 	
+	public static int getPATIENTID() {return PATIENTID;}
+	public static void setPATIENTID(int pATIENTID) {PATIENTID = pATIENTID;}
+	public int getID() {return ID;}
+	public void setID(int iD) {ID = iD;}
+	public String getFirst_name() {return first_name;}
+	public void setFirst_name(String first_name) {this.first_name = first_name;}
+	public String getLast_name() {return last_name;}
+	public void setLast_name(String last_name) {this.last_name = last_name;}
+	public void setPatientName(String patientName) {this.patientName = patientName;}
 	public int getPatientID() {return ID;}
 	public String getAddress() {return address;}
 	public void setAddress(String address) {this.address = address;}
@@ -45,19 +50,17 @@ public class Patient implements Serializable {
 	public String getFirstName() {return first_name;}
 	public void setLastName(String last_name) {this.last_name = last_name;}
 	public String getLastName() {return last_name;}
-	public void setAge(int age) {this.age = age;}
-	public int getAge() {return age;}
+	public void setDOB(String dob) {this.dob = dob;}
+	public String getDOB() {return dob;}
 	public String getPhoneNo() {return phoneNo;}
 	public void setPhoneNo(String phoneNo) {this.phoneNo = phoneNo;}
 	public String getPatientName(){return patientName;}
 	public AppointmentList getAppointments() {return appointments;}
 	public void setAppointments(AppointmentList appointments) {this.appointments = appointments;}
-	//public PaymentList getPayments() {return payments;}
-	//public void setPayments(PaymentList payments) {this.payments = payments;}
 	public InvoiceList getInvoices() {return invoices;}
 	public void setInvoices(InvoiceList invoices) {this.invoices = invoices;}
 	
-	/*public void print() {
+	public void print() {
 		System.out.println(toString());
 	}
 
@@ -66,12 +69,8 @@ public class Patient implements Serializable {
 				+this.ID+" "
 				+this.patientName+" "
 				+"Address: "
-				+this.addressLine1+", "
-				+this.addressLine2+", "
-				+this.city+", "
-				+this.country+", "
+				+this.address+", "
 				+"Phone No: "
 				+this.phoneNo+" ";
-	}*/
-
+	}
 }

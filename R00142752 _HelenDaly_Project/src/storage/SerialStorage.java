@@ -7,10 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class SerialStorage implements StorageIntface, Serializable {
+public class SerialStorage implements StorageIntface, Serializable {//I don't think stage is serializable
 	
 	@Override
-	public boolean save(Object o){
+	public boolean save(Object o){//save to serial file
 		boolean success = true;
 		try {
 			FileOutputStream fileOut = new FileOutputStream("gentleDental.ser");
@@ -27,7 +27,7 @@ public class SerialStorage implements StorageIntface, Serializable {
 	};
 	
 	@Override
-	public Object load() {
+	public Object load() {//load from serial file
 		Object o = null;
 		try {
 			FileInputStream fileIn = new FileInputStream("gentleDental.ser");

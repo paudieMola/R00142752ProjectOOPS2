@@ -19,35 +19,27 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Window;
 
 public class AddPatientWindow extends GridPane{
-	private Boolean edit = false;
-	private Patient p;
 	
-	public AddPatientWindow() {
+	public AddPatientWindow() {// for creating a new patient
 		super();
 		setupWindow();
 		addUIControls();
 	}
-	
-	public AddPatientWindow(Patient patient) {
+	/*
+	public AddPatientWindow(Patient patient) {// for editing a patient
 		super();
-		this.p = patient;
-		edit = true;
+		this.p = patient;//set this patient to the patient supplied
+		edit = true;//boolean to load the details into the textfields for an edit
 		setupWindow();
+		addUIControls(Patient p);
 		
-		//addUIControls();
-	}
+	}*/
 
 	private void setupWindow() {
 		// Position the pane at the center of the screen, both vertically and horizontally
 	    this.setAlignment(Pos.CENTER);
-
-	    // Set a padding of 20px on each side
 	    this.setPadding(new Insets(40, 40, 40, 40));
-
-	    // Set the horizontal gap between columns
 	    this.setHgap(10);
-
-	    // Set the vertical gap between rows
 	    this.setVgap(10);
 	    this.setBackground(null);
 
@@ -76,25 +68,21 @@ public class AddPatientWindow extends GridPane{
 	    Label nameLabel = new Label("Full Name : ");
 	    this.add(nameLabel, 0,1);
 	    
-
 	    // Add Name Text Field
 	    TextField nameField = new TextField();
 	    nameField.setPrefHeight(40);
-	    if(edit) {
-        	nameField.setText(p.getPatientName());}
+        //nameField.setText(p.getPatientName());
 	    this.add(nameField, 1,1);
-	  
 
 	    // Add Age Label
-	    Label ageLabel = new Label("Age: ");
-	    this.add(ageLabel, 0, 2);
+	    Label DOBLabel = new Label("Date of Birth:");
+	    this.add(DOBLabel, 0, 2);
 
 	    // Add Age Text Field
-	    TextField ageField = new TextField();
-	    ageField.setPrefHeight(40);
-	    if(edit) {
-        	ageField.setText(String.valueOf(p.getAge()));}
-	    this.add(ageField, 1, 2);
+	    TextField DOBField = new TextField();
+	    DOBField.setPrefHeight(40);
+        	//DOBField.setText(String.valueOf(p.getDOB()));
+	    this.add(DOBField, 1, 2);
 
 	    // Add address Label
 	    Label addressLabel = new Label("Address : ");
@@ -102,8 +90,7 @@ public class AddPatientWindow extends GridPane{
 
 	    // Add address Field
 	    TextField addressField = new TextField();
-	    if(edit) {
-        	addressField.setText(p.getAddress());}
+        	//addressField.setText(p.getAddress());
 	    addressField.setPrefHeight(40);
 	    this.add(addressField, 1, 3);
 	    
@@ -114,12 +101,11 @@ public class AddPatientWindow extends GridPane{
 	    // Add phoneNo Field
 	    TextField phoneNoField = new TextField();
 	    phoneNoField.setPrefHeight(40);
-	    if(edit) {
-	    	phoneNoField.setText(p.getPhoneNo());}
+	    	//phoneNoField.setText(p.getPhoneNo());
 	    this.add(phoneNoField, 1, 4);
 
 	    // Add Submit Button
-	    AddButton submitButton = new AddButton();
+	    MyButton submitButton = new MyButton("Add");
 	    submitButton.setPrefHeight(40);
 	    submitButton.setDefaultButton(true);
 	    submitButton.setPrefWidth(100);
@@ -131,39 +117,37 @@ public class AddPatientWindow extends GridPane{
 	                "Form Error!", "Please enter your name");
 	                return;
 	            }
-	            if(ageField.getText().isEmpty()) {
-	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
-	                "Form Error!", "Please enter your age");
+	            if(DOBField.getText().isEmpty()) {
+	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check this out
+	                "Form Error!", "Please enter your date of birth");
 	                return;
 	            }
 	            if(addressField.getText().isEmpty()) {
-	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
+	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(),//check this out
 	                "Form Error!", "Please enter an address");
 	                return;
 	            }
 	            
 	            if(phoneNo.getText().isEmpty()) {
-	                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
+	                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check this
 	                "Form Error!", "Please enter a phone number");
 	                return;
 	            }
-	            //must change to 
-	            showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), 
-	            "Registration Successful!", "Welcome " + nameField.getText());
-	            
 	            
 	            String name = nameField.getText();
-	            String[] data = name.split(" ");
-	            if(edit) {
-	            	p.setFirstName(data[0]);
-	            	p.setLastName(data[1]);
-	            	p.setAge(Integer.parseInt(ageField.getText()));
-	            	p.setAddress(addressField.getText());
-	            	p.setPhoneNo(phoneNoField.getText());
+	            String[] data = name.split(" ");//split name into first and last
+	            
+	            if(data.length<2) {
+	                showAlert(MyAlert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), //check this
+	                "Error","Please enter a first and last name.");
+	                return;
 	            }
-	            else{p = new Patient(data[0],data[1],Integer.parseInt(ageField.getText()),addressField.getText(), phoneNoField.getText());
-	            Controller.getInstance().addPatient(p);}
-	            System.out.println(Controller.getInstance().getPatients().getSize());//take this out after I know its working
+	            //must change to MuAlert
+	            showAlert(Alert.AlertType.CONFIRMATION, Controller.getInstance().getStage().getScene().getWindow(), 
+	            "Registration Successful!", "Welcome " + nameField.getText());
+	           
+	            Patient p = new Patient(data[0],data[1],DOBField.getText(),addressField.getText(), phoneNoField.getText());
+	            Controller.getInstance().addPatient(p);//if its a new one just create a whole new patient
 	        }
 	    });
 	    this.add(submitButton, 0, 5, 2, 1);

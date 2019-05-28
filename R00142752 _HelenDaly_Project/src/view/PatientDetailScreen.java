@@ -4,7 +4,7 @@ import classes.Patient;
 import javafx.scene.layout.GridPane;
 
 public class PatientDetailScreen extends GridPane{
-	//constructor
+	//to display all patient details
 	public PatientDetailScreen(Patient patient) {
 		super();
 		}

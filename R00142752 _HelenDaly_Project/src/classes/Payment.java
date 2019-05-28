@@ -1,6 +1,5 @@
 package classes;
 import java.io.Serializable;
-//
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,25 +24,11 @@ public class Payment implements Serializable {
 		this.paymentDate = dFormat.format(now);
 	}
 	
-	public int getPatientID() {
-		return PatientID;
-	}
-	public void setPatientID(int patientID) {
-		PatientID = patientID;
-	}
-	public double getAmount() {
-		return amount;
-	}
-	public String getPaymentDate() {
-		return paymentDate;
-	}
-	public void setPaymentDate(String paymentDate) {
-		this.paymentDate = paymentDate;
-	}
-	public int getInvoiceNo() {
-		return invoiceNo;
-	}
+	public int getPatientID() {return PatientID;}
+	public void setPatientID(int patientID) {PatientID = patientID;}
+	public double getAmount() {return amount;}
+	public String getPaymentDate() {return paymentDate;}
+	public void setPaymentDate(String paymentDate) {this.paymentDate = paymentDate;}
+	public int getInvoiceNo() {return invoiceNo;}
 
-	
-	
 }

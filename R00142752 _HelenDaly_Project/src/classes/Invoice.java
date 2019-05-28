@@ -1,8 +1,6 @@
 package classes;
 import java.io.Serializable;
-//
 import java.util.Date;
-
 import list.PaymentList;
 import list.ProcedureList;
 
@@ -27,32 +25,18 @@ public class Invoice implements Serializable{
 		this.invoiceNo = INVOICENO;
 		Invoice.INVOICENO++;
 	}
-
-	public int getInvoiceNo() {
-		return invoiceNo;
-	}
-
-	public Date getInvoiceDate() {
-		return invoiceDate;
-	}
-
-	public void setInvoiceDate(Date invoiceDate) {
-		this.invoiceDate = invoiceDate;
-	}
-
-	public double getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount() {
-		for (int i=0; i <procedures.getSize(); i++)
-			
-		
-		this.totalAmount = totalAmount;
-	}
 	
-	public void makePayment(double amountPaid) {
+	//gets and sets
+	public int getInvoiceNo() {return invoiceNo;}
+	public Date getInvoiceDate() {return invoiceDate;}
+	public void setInvoiceDate(Date invoiceDate) {this.invoiceDate = invoiceDate;}
+	public double getTotalAmount() {return totalAmount;}
+	public void setTotalAmount(int totalAmount) {this.totalAmount = totalAmount;}//add up prices here
+	
+	public void makePayment(double amountPaid) {//to add payments 
 		Payment paymentMade = new Payment(amountPaid, patientID, invoiceNo);
+		this.payments = new PaymentList();
+		payments.add(paymentMade);
 	}
 	
 }

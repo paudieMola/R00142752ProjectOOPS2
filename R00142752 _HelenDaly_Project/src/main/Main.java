@@ -12,8 +12,8 @@ public class Main extends Application {
 	@Override   
 	public void start(Stage primaryStage) {
 		try {
-			Controller.getInstance().setStage(primaryStage);
-			Controller.getInstance().loadData();
+			Controller.getInstance().setStage(primaryStage);//get instance and load stage
+			Controller.getInstance().loadData();//create data if not saved. Stage is not serializable.?
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
