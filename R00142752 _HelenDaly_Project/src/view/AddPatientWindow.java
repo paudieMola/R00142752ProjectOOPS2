@@ -25,15 +25,6 @@ public class AddPatientWindow extends GridPane{
 		setupWindow();
 		addUIControls();
 	}
-	/*
-	public AddPatientWindow(Patient patient) {// for editing a patient
-		super();
-		this.p = patient;//set this patient to the patient supplied
-		edit = true;//boolean to load the details into the textfields for an edit
-		setupWindow();
-		addUIControls(Patient p);
-		
-	}*/
 
 	private void setupWindow() {
 		// Position the pane at the center of the screen, both vertically and horizontally
@@ -112,7 +103,7 @@ public class AddPatientWindow extends GridPane{
 	    submitButton.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override//must change the Alerts to myAlert
 	        public void handle(ActionEvent event) {
-	            if(nameField.getText().isEmpty()) {//check this next line. I don't have a getWindow method
+	            if(nameField.getText().isEmpty()) {
 	                showAlert(Alert.AlertType.ERROR, Controller.getInstance().getStage().getScene().getWindow(), 
 	                "Form Error!", "Please enter your name");
 	                return;

@@ -5,8 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import classes.Appointment;
+import classes.ObjectToListInt;
 import classes.Patient;
 import classes.Procedure;
+import exception.ListException;
 //import application.Main;
 import list.PatientList;
 import list.ProcedureList;
@@ -16,12 +19,13 @@ import view.AddPatientWindow;
 import view.HomeScreen;
 import view.Login;
 import view.PatientsScreen;
+import view.ProceduresScreen;
 import view.ScreenTemplate;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Controller implements Serializable {
+public class Controller implements Serializable, ObjectToListInt {
 	//create controller first time, and use singleton to persist data
 	private static Controller instance;
 	private transient Stage stage;
@@ -32,6 +36,7 @@ public class Controller implements Serializable {
 	private Login login;
 	private StorageIntface store;
 	private PatientsScreen patientsScreen;
+	private ProceduresScreen proceduresScreen;
 	
 	private Controller() {
 		instance = this;
@@ -48,16 +53,10 @@ public class Controller implements Serializable {
 		return instance;
 	}
 	
-	public void setStage(Stage stage) {this.stage = stage;}
-	
-	public Stage getStage() {return this.stage;}
-	
 	public void setHomeScreen() {
 		this.temp = new ScreenTemplate((home = new HomeScreen()));
 		this.getStage().setScene(temp);
 	}
-	
-	public void setScene(Scene scene) {this.stage.setScene(scene);}
 	
 	public void saveController() {
 		this.store.save(Controller.getInstance());
@@ -94,11 +93,37 @@ public class Controller implements Serializable {
 		temp.getStylesheets().add(main.Main.class.getResource("application.css").toExternalForm());
 		this.stage.show();
 	}
-	//gets and sets
-	public PatientList getPatients() {return patients;}
-	public void setPatients(PatientList patients) {this.patients = patients;}
-	public ProcedureList getProcedures() {return procedures;}
-	public void setProcedures(ProcedureList procedures) {this.procedures = procedures;}
+	
+	@Override
+	public void addToList(Object o) {
+		if (o instanceof Patient) {this.patients.add(o);}
+		else if (o instanceof Procedure) {this.procedures.add(o);}
+		else if (o instanceof Appointment) {this.procedures.add(o);}
+		else {try {
+			throw new ListException("Problem encountered");
+		} catch (ListException e) {
+			e.printStackTrace();
+		}};
+		
+	}
+
+	@Override
+	public void deleteFromList(Object o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editObject(Object o) {
+		// TODO Auto-generated method stub
+		
+	}
+	/*public void addObject(Object o) {//add a patient
+		if(o instanceof Patient) {this.patients.add(o);}
+		
+		this.patientsScreen.setPatientList();//update list 
+		showPatientsScreen();
+	}
 	
 	public void addPatient(Patient p) {//add a patient
 		this.patients.add(p);
@@ -127,6 +152,35 @@ public class Controller implements Serializable {
 		this.patientsScreen.setPatientList();
 		showPatientsScreen();
 	}
+	/*
+	public void addProcedure(Procedure pr) {//add a patient
+		this.procedures.add(pr);
+		this.proceduresScreen.setProcedureList();//update list 
+		showProceduresScreen();
+	}
+	
+	public void deletePatient(int id) {//delete a patient
+		Patient patient = null;
+		for (Object p:patients.getList()) {
+			if(((Patient)p).getPatientID()==id)
+				patient = (Patient)p;//find patient in list
+		}
+		this.patients.getList().remove(id);
+		System.out.println("Deleted"+patient.getPatientName());
+		this.patientsScreen.setPatientList();//update list
+		showPatientsScreen();
+	}
+	
+	public void editPatient(Patient patient) {
+		int idToChange = patient.getID();
+		for (Object p:patients.getList()) {
+			if(((Patient)p).getPatientID()==idToChange)
+				patient = (Patient)p;//load the identified patient into old patient
+		}
+		this.patientsScreen.setPatientList();
+		showPatientsScreen();
+	}*/
+	
 	
 	public void showAllDetails(Patient p) {
 		// to show all patient details..watch this space. 
@@ -137,5 +191,22 @@ public class Controller implements Serializable {
 		home.setCenter(patientsScreen);
 		this.getStage().setScene(temp);
 	}
+	
+	public void showProceduresScreen() {//this is a method to return to patients screen after adding or deleting a patient
+		this.proceduresScreen.setProcedureList();
+		home.setCenter(procedureScreen);
+		this.getStage().setScene(temp);
+	}
+	
+	//gets and sets
+		public void setStage(Stage stage) {this.stage = stage;}
+		public Stage getStage() {return this.stage;}
+		public void setScene(Scene scene) {this.stage.setScene(scene);}
+		public PatientList getPatients() {return patients;}
+		public void setPatients(PatientList patients) {this.patients = patients;}
+		public ProcedureList getProcedures() {return procedures;}
+		public void setProcedures(ProcedureList procedures) {this.procedures = procedures;}
+
+		
 	
 }
